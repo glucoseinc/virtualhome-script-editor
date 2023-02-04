@@ -1,0 +1,426 @@
+[
+  {
+    "name": "Brush",
+    "objects": "1",
+    "rdf": "brush",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Climb",
+    "objects": "1",
+    "rdf": "climb",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Close",
+    "objects": "1",
+    "rdf": "close",
+    "requiredProperties": [
+      "CAN_OPEN"
+    ],
+    "requiredStates": [
+      "OPEN"
+    ]
+  },
+  {
+    "name": "Cut",
+    "objects": "1",
+    "rdf": "cut",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Drink",
+    "objects": "1",
+    "rdf": "drink",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Eat",
+    "objects": "1",
+    "rdf": "eat",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Fall",
+    "objects": "0",
+    "rdf": "fall",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "FallBack",
+    "objects": "1",
+    "rdf": "fallback",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "FallSit",
+    "objects": "0",
+    "rdf": "fallsit",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "FallTable1",
+    "objects": "1",
+    "rdf": "falltable1",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "FallTable2",
+    "objects": "1",
+    "rdf": "falltable2",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Find",
+    "objects": "1",
+    "rdf": "find",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Fold",
+    "objects": "1",
+    "rdf": "fold",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "GoDown",
+    "objects": "0",
+    "rdf": "godown",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Grab",
+    "objects": "1",
+    "rdf": "grab",
+    "requiredProperties": [
+      "GRABBABLE"
+    ],
+    "requiredStates": []
+  },
+  {
+    "name": "Jump",
+    "objects": "0",
+    "rdf": "jump",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "JumpDown",
+    "objects": "0",
+    "rdf": "jumpdown",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "JumpUp",
+    "objects": "1",
+    "rdf": "jumpup",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Kneel",
+    "objects": "0",
+    "rdf": "kneel",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "LegOpp",
+    "objects": "1",
+    "rdf": "legopp",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Lift",
+    "objects": "1",
+    "rdf": "lift",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "LookAt",
+    "objects": "1",
+    "rdf": "lookat",
+    "requiredProperties": [
+      "LOOKABLE"
+    ],
+    "requiredStates": []
+  },
+  {
+    "name": "Open",
+    "objects": "1",
+    "rdf": "open",
+    "requiredProperties": [
+      "CAN_OPEN"
+    ],
+    "requiredStates": [
+      "CLOSE"
+    ]
+  },
+  {
+    "name": "Pour",
+    "objects": "2",
+    "rdf": "pour",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Put",
+    "objects": "1",
+    "rdf": "put",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "PutBack",
+    "objects": "2",
+    "rdf": "putback",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "PutIn",
+    "objects": "1",
+    "rdf": "putin",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Rinse",
+    "objects": "1",
+    "rdf": "rinse",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Run",
+    "objects": "1",
+    "rdf": "run",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Scrub",
+    "objects": "2",
+    "rdf": "scrub",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Shake",
+    "objects": "1",
+    "rdf": "shake",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Sit",
+    "objects": "1",
+    "rdf": "sit",
+    "requiredProperties": [
+      "SITTABLE"
+    ],
+    "requiredStates": []
+  },
+  {
+    "name": "Smell",
+    "objects": "0",
+    "rdf": "smell",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Soak",
+    "objects": "0",
+    "rdf": "soak",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Squat",
+    "objects": "0",
+    "rdf": "squat",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Squeeze",
+    "objects": "1",
+    "rdf": "squeeze",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Stand",
+    "objects": "0",
+    "rdf": "stand",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "StandUp",
+    "objects": "0",
+    "rdf": "standup",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Stir",
+    "objects": "2",
+    "rdf": "stir",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Straddle",
+    "objects": "0",
+    "rdf": "straddle",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Stretch",
+    "objects": "1",
+    "rdf": "stretch",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Sweep",
+    "objects": "1",
+    "rdf": "sweep",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "SwitchOff",
+    "objects": "1",
+    "rdf": "switchoff",
+    "requiredProperties": [
+      "HAS_SWITCH"
+    ],
+    "requiredStates": []
+  },
+  {
+    "name": "SwitchOn",
+    "objects": "1",
+    "rdf": "switchon",
+    "requiredProperties": [
+      "HAS_SWITCH"
+    ],
+    "requiredStates": []
+  },
+  {
+    "name": "Throw",
+    "objects": "1",
+    "rdf": "throw",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Touch",
+    "objects": "1",
+    "rdf": "touch",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "TurnLeft",
+    "objects": "0",
+    "rdf": "turnleft",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "TurnRight",
+    "objects": "0",
+    "rdf": "turnright",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "TurnTo",
+    "objects": "1",
+    "rdf": "turnto",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Type",
+    "objects": "0",
+    "rdf": "type",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Unfold",
+    "objects": "1",
+    "rdf": "unfold",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Vacuum",
+    "objects": "1",
+    "rdf": "vacuum",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Walk",
+    "objects": "1",
+    "rdf": "walk",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "WalkForward",
+    "objects": "0",
+    "rdf": "walkforward",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "WalkToward",
+    "objects": "1",
+    "rdf": "walktoward",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Wipe",
+    "objects": "2",
+    "rdf": "wipe",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Wrap",
+    "objects": "1",
+    "rdf": "wrap",
+    "requiredProperties": [],
+    "requiredStates": []
+  },
+  {
+    "name": "Write",
+    "objects": "0",
+    "rdf": "write",
+    "requiredProperties": [],
+    "requiredStates": []
+  }
+]
