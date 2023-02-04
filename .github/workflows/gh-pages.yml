@@ -45,7 +45,7 @@ jobs:
       run: npm run export
       working-directory: ./ui
     
-    - run: echo risk-ui.libri.jp > ./ui/out/CNAME
+    - run: echo vh-editor.libri.jp > ./ui/out/CNAME
     
     # gh-pagesブランチにoutディレクトリの中身をプッシュする
     # gh-pagesブランチは自動的に作成される
