@@ -1,0 +1,39 @@
+version: '3'
+services:
+  graphdb:
+    image: ontotext/graphdb:10.0.0
+    ports:
+      - 7200:7200
+      - 7300:7300
+    entrypoint: [ "/opt/graphdb/entrypoint.sh" ]
+    volumes:
+      - ./.graphdb-data:/opt/graphdb/home    
+      - ./RDF:/opt/graphdb/home/graphdb-import
+      - ./graphdb-repo-config.ttl:/opt/graphdb/graphdb-repo-config.ttl
+      - ./entrypoint.sh:/opt/graphdb/entrypoint.sh
+    environment:  
+      GDB_JAVA_OPTS: >-
+        -Xmx2g -Xms2g
+        -Dgraphdb.home=/opt/graphdb/home
+        -Dgraphdb.workbench.importDirectory=/opt/graphdb/home/graphdb-import
+        -Dgraphdb.workbench.cors.enable=true
+        -Denable-context-index=true
+        -Dentity-pool-implementation=transactional
+        -Dhealth.max.query.time.seconds=60
+        -Dgraphdb.append.request.id.headers=true
+        -Dreuse.vars.in.subselects=true
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - graphdb
+      - vhecitor
+    ports:
+      - 8080:80
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+  vhecitor:
+    build: ui
+    ports:
+      - 3000:3000
+    environment:
+      NEXT_PUBLIC_SPARQL_ENDPOINT: http://localhost:8080/sparql
