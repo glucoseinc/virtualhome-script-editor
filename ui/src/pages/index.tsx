@@ -4,10 +4,11 @@ import styles from '@/styles/Home.module.css'
 import { Box, Button, IconButton, Stack, Grid, CircularProgress, Select, MenuItem } from '@mui/material'
 import { ControlPoint, Forward } from '@mui/icons-material'
 import { ScriptViewer, EventRow, useDialog } from '@/components'
-import { type Event, type VirtualHomeAction, getObjects } from '@/models'
+import { type Event, type VirtualHomeAction, getObjects, convertToScript } from '@/models'
 import { actions as actionData } from '@/data/actions'
 import { Scene, scenes } from '@/models/scene'
 import { useConfirmDialog } from '@/components/confirmDialog'
+import { API_ENDPOINT, generateVideo } from '@/utils/generateVideo'
 
 const newData = (scene: Scene, action_?: VirtualHomeAction | undefined): Event => {
   const action = action_ ?? actionData[0]
@@ -19,14 +20,10 @@ const newData = (scene: Scene, action_?: VirtualHomeAction | undefined): Event =
     targetObject: targetObjects[0],
   }
 }
-const fetchMovie = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 2000))
-  return (await fetch('/movies/Drink_alcohol0.mp4')).blob()
-}
 
 export default function Home() {
   const videoRef = React.useRef<HTMLVideoElement>(null)
-  const [movieFile, setMovieFile] = React.useState<Blob | null>(null)
+  const [movieUrl, setMovieUrl] = React.useState<string | undefined>(undefined)
   const [scene, setScene] = React.useState<Scene>('scene1')
   const [events, setEvents] = React.useState<readonly Event[]>([newData('scene1')])
   const [fetchingMovie, setFetchingMovie] = React.useState(false)
@@ -73,25 +70,33 @@ export default function Home() {
   const addEvent = React.useCallback(() => {
     setEvents((arr) => [...arr, newData(scene)])
   }, [scene])
+  const script = React.useMemo(() => events.map(convertToScript).join('\n'), [events])
+
   const onClickConvertButton = React.useCallback(async () => {
     if (videoRef.current) {
       setFetchingMovie(true)
-      const blob = await fetchMovie()
-      setMovieFile(blob)
-      const url = URL.createObjectURL(blob)
-      videoRef.current.src = url
+      try {
+        const result = await generateVideo(scene, script.split('\n'))
+        if (result.data.ok) {
+          setMovieUrl(`${API_ENDPOINT}${result.data.video_path}`)
+        } else {
+          alert(result.data.message)
+        }
+      } catch (e) {
+        console.log(e)
+      }
       setFetchingMovie(false)
     }
-  }, [])
+  }, [scene, script])
+
   const onClickDownloadButton = React.useCallback(() => {
-    if (videoRef.current == null) return
-    if (movieFile == null) return alert('生成された動画がありません。')
+    if (movieUrl === undefined) return alert('生成された動画がありません。')
 
     const a = document.createElement('a')
-    a.download = 'hogehoge.mp4'
-    a.href = URL.createObjectURL(movieFile)
+    a.download = 'output.mp4'
+    a.href = movieUrl
     a.click()
-  }, [movieFile])
+  }, [movieUrl])
 
   const { selectImportScript, render: MyDialog } = useDialog()
   const handleImportScript = React.useCallback(async () => {
@@ -124,7 +129,7 @@ export default function Home() {
         <Grid container>
           <Grid item xs={5.5}>
             <Button onClick={handleImportScript}>Import</Button>
-            <ScriptViewer events={events} />
+            <ScriptViewer script={script} />
           </Grid>
           <Grid item xs={1}>
             <Grid container justifyContent="center" height="100%">
@@ -143,7 +148,7 @@ export default function Home() {
             <Box>
               <Button onClick={onClickDownloadButton}>Download</Button>
               <Box>
-                <video ref={videoRef} className={styles.video} controls></video>
+                <video ref={videoRef} src={movieUrl} className={styles.video} controls></video>
               </Box>
             </Box>
           </Grid>

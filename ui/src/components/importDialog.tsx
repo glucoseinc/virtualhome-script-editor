@@ -13,7 +13,7 @@ import {
   Box,
   FormControl,
 } from '@mui/material'
-import type { Event, Scene } from '@/models'
+import { convertToScript, Event, Scene } from '@/models'
 import { ScriptViewer } from './scriptViewer'
 
 import { type ActivityQueryResult, fetchActivity } from '@/sparql/fetchActivities'
@@ -114,6 +114,8 @@ const _Dialog: React.FC<_DialogProps> = ({ open, onClose }) => {
     f()
   }, [])
 
+  const script = React.useMemo(() => state?.events.map(convertToScript).join('\n'), [state])
+
   return (
     <Dialog open={open} onClose={handleCancel} maxWidth="xl">
       <DialogTitle>既存データのインポート</DialogTitle>
@@ -137,7 +139,7 @@ const _Dialog: React.FC<_DialogProps> = ({ open, onClose }) => {
                 ])}
               </Select>
             </FormControl>
-            <ScriptViewer events={state?.events ?? []} />
+            <ScriptViewer script={script ?? ''} />
           </Stack>
         </Box>
       </DialogContent>

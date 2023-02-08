@@ -22,18 +22,35 @@ services:
         -Dhealth.max.query.time.seconds=60
         -Dgraphdb.append.request.id.headers=true
         -Dreuse.vars.in.subselects=true
+  unity:
+    build:
+      context: ./virtualhome_aist/docker/unity
+    image: vh0
+    volumes:
+      - ./Output:/Output
+  api:
+    build:
+      context: ./virtualhome_aist
+      dockerfile: ./docker/api/Dockerfile
+    image: vh0-api
+    volumes:
+      - ./Output:/Output
+    depends_on:
+      unity:
+        condition: service_started
   nginx:
     image: nginx:latest
     depends_on:
       - graphdb
       - vhecitor
+      - api
     ports:
       - 8080:80
     volumes:
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
   vhecitor:
-    build: ui
-    ports:
-      - 3000:3000
-    environment:
-      NEXT_PUBLIC_SPARQL_ENDPOINT: http://localhost:8080/sparql
+    build: 
+      context: ui
+      args:
+        NEXT_PUBLIC_SPARQL_ENDPOINT: http://localhost:8080/sparql
+        NEXT_PUBLIC_API_URL: http://localhost:8080

@@ -22,10 +22,27 @@ services:
         -Dhealth.max.query.time.seconds=60
         -Dgraphdb.append.request.id.headers=true
         -Dreuse.vars.in.subselects=true
+  unity:
+    build:
+      context: ./virtualhome_aist/docker/unity
+    image: vh0
+    volumes:
+      - ./Output:/Output
+  api:
+    build:
+      context: ./virtualhome_aist
+      dockerfile: ./docker/api/Dockerfile
+    image: vh0-api
+    volumes:
+      - ./Output:/Output
+    depends_on:
+      unity:
+        condition: service_started
   nginx:
     image: nginx:latest
     depends_on:
       - graphdb
+      - api
     ports:
       - 8080:80
     volumes:
