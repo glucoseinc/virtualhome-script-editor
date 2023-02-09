@@ -8,7 +8,7 @@ import { type Event, type VirtualHomeAction, getObjects, convertToScript } from 
 import { actions as actionData } from '@/data/actions'
 import { Scene, scenes } from '@/models/scene'
 import { useConfirmDialog } from '@/components/confirmDialog'
-import { API_ENDPOINT, generateVideo } from '@/utils/generateVideo'
+import { API_ENDPOINT, deleteVideo, generateVideo } from '@/utils/api'
 
 const newData = (scene: Scene, action_?: VirtualHomeAction | undefined): Event => {
   const action = action_ ?? actionData[0]
@@ -78,7 +78,7 @@ export default function Home() {
       try {
         const result = await generateVideo(scene, script.split('\n'))
         if (result.data.ok) {
-          setMovieUrl(`${API_ENDPOINT}${result.data.video_path}`)
+          setMovieUrl(`${result.data.video_path}`)
         } else {
           alert(result.data.message)
         }
@@ -96,6 +96,20 @@ export default function Home() {
     a.download = 'output.mp4'
     a.href = movieUrl
     a.click()
+  }, [movieUrl])
+
+  const onClickDeleteButton = React.useCallback(async () => {
+    if (movieUrl === undefined) return alert('生成された動画がありません。')
+    const result = window.confirm('生成した動画を削除しますか？')
+    if (!result) {
+      return
+    }
+    await deleteVideo(movieUrl)
+    if (videoRef.current) {
+      videoRef.current.src = ''
+      videoRef.current.load()
+    }
+    setMovieUrl(undefined)
   }, [movieUrl])
 
   const { selectImportScript, render: MyDialog } = useDialog()
@@ -137,7 +151,7 @@ export default function Home() {
                 {fetchingMovie ? (
                   <CircularProgress />
                 ) : (
-                  <IconButton onClick={onClickConvertButton}>
+                  <IconButton disabled={movieUrl ? true : false} onClick={onClickConvertButton}>
                     <Forward fontSize="large" />
                   </IconButton>
                 )}
@@ -146,9 +160,19 @@ export default function Home() {
           </Grid>
           <Grid item xs={5.5}>
             <Box>
-              <Button onClick={onClickDownloadButton}>Download</Button>
+              <Button disabled={movieUrl ? false : true} onClick={onClickDownloadButton}>
+                Download
+              </Button>
+              <Button disabled={movieUrl ? false : true} onClick={onClickDeleteButton}>
+                DELETE
+              </Button>
               <Box>
-                <video ref={videoRef} src={movieUrl} className={styles.video} controls></video>
+                <video
+                  ref={videoRef}
+                  src={movieUrl ? `${API_ENDPOINT}/static/${movieUrl}` : ''}
+                  className={styles.video}
+                  controls
+                ></video>
               </Box>
             </Box>
           </Grid>
