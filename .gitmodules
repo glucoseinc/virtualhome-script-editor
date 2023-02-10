@@ -1,0 +1,3 @@
+[submodule "virtualhome_aist"]
+	path = virtualhome_aist
+	url = git@github.com:aistairc/virtualhome_aist.git
